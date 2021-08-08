@@ -1,0 +1,30 @@
+<div class="container custom-container">
+    <div class="col-md-12 width-300">
+      <h3 class="mb-3 text-center">Create New Offer</h3>
+      <div mat-form-field appearance="fill" class="form-group">
+        <input mat-form-field type="text" [(ngModel)]="offerDetails.title" class="form-control" placeholder="Title">
+      </div>
+  
+      <div class="form-group">
+        <textarea required type="textarea" [(ngModel)]="offerDetails.description" class="form-control" placeholder="Description"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <input type="number" [(ngModel)]="offerDetails.price" class="form-control" placeholder="Price">
+      </div>
+
+      <div class="form-group">
+        <select [(ngModel)]="offerDetails.category" class="form-control">
+
+          <ng-container *ngFor="let cat of Categories">
+            <option value="{{ cat.name }}">{{ cat.name }}</option>
+          </ng-container>
+
+        </select>
+      </div>
+
+      <div class="form-group">
+        <button mat-raised-button class="btn btn-success btn-lg btn-block" (click)="addOffer()">Create Offer</button>
+      </div>
+    </div>
+</div>

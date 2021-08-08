@@ -1,0 +1,24 @@
+<div class="container custom-container-2">
+
+    <div class="container">
+      <mat-card class="example-card mb-2">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{offerData.title}}</mat-card-title>
+          <mat-card-subtitle>{{offerData.category.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            {{ offerData.description }}
+          </p>
+          <p>Price: ${{ offerData.price }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button class="btn btn-success btn-lg" routerLink="/offer-edit/{{offerData.id}}">Edit</button>
+          <button mat-raised-button class="btn btn-danger btn-lg" (click)="deleteOffer(offerData.id)">Delete</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+      
+</div>

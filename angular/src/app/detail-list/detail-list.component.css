@@ -1,0 +1,8 @@
+.example-card {
+    max-width: 700px;
+  }
+  
+.example-header-image {
+    background-image: url('https://cdn1.vectorstock.com/i/1000x1000/15/75/hot-deal-symbol-vector-14941575.jpg');
+    background-size: cover;
+  }

@@ -1,0 +1,44 @@
+<div class="container custom-container-2">
+
+  <div class="form-group search-container mb-4">
+    <h3>Filter by Category:</h3>
+    <select [(ngModel)]="searchCategory" class="form-control">
+      <option value="All">All</option>
+
+      <ng-container *ngFor="let cat of Categories">
+        <option value="{{ cat.name }}">{{ cat.name }}</option>
+      </ng-container>
+
+    </select>
+  </div>
+
+
+  <div class="no-data text-center" *ngIf="Offer.length == 0">
+    <p>There is no offers added yet!</p>
+  </div>
+  <div *ngIf="Offer.length !== 0">
+    <ng-container *ngFor="let offer of Offer">
+      <div *ngIf="searchCategory == 'All'">
+        <a routerLink="/offer-detail/{{offer.id}}" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h3 class="mb-1">{{ offer.title }}</h3>
+            <small class="text-muted">{{ offer.created_at }}</small>
+          </div>
+          <small class="text-muted">{{ offer.category.name }}</small>
+        </a>
+      </div>
+
+      <div *ngIf="searchCategory !== 'All'">
+        <div *ngIf="searchCategory == offer.category.name">
+          <a routerLink="/offer-detail/{{offer.id}}" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h3 class="mb-1">{{ offer.title }}</h3>
+              <small class="text-muted">{{ offer.created_at }}</small>
+            </div>
+            <small class="text-muted">{{ offer.category.name }}</small>
+          </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

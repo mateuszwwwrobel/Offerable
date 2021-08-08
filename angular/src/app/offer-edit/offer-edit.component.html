@@ -1,0 +1,33 @@
+<div class="container custom-container">
+    <div class="col-md-12 width-600">
+      
+      <h3 class="mb-3 text-center">Update Offer</h3>
+  
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Title:</label>
+        <div class="col-sm-10">
+          <input type="text" [(ngModel)]="offerData.title" class="form-control" placeholder="Name">
+        </div>
+      </div>
+      
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Description:</label>
+        <div class="col-sm-10">
+          <textarea type="textarea" [(ngModel)]="offerData.description" class="form-control" placeholder="Description"></textarea>
+        </div>
+      </div>
+  
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Price:</label>
+        <div class="col-sm-10">
+          <input type="number" [(ngModel)]="offerData.price" class="form-control" placeholder="Price">
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <button mat-raised-button color="primary" class="btn btn-success btn-lg btn-block" (click)="updateOffer()">Update Offer</button>
+      </div>
+      
+    </div>
+</div>
+  

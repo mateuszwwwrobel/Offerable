@@ -1,0 +1,8 @@
+.title{
+    background: linear-gradient(to right,rgb(8, 230, 166),rgb(77, 211, 241));
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    padding: 100px;
+    text-align: center;
+}
