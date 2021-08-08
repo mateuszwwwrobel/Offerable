@@ -7,6 +7,8 @@ If you want to run project locally do the following:
 
 ```sh
 $ git clone https://github.com/mateuszwwwrobel/Offerable.git
+```
+```sh
 $ cd Offerable
 ```
 
@@ -14,6 +16,8 @@ Create a virtual environment and activate it:
 
 ```sh
 $ python3 -m venv <venv-name>
+```
+```sh
 $ source <venv-name>/bin/activate
 ```
 
