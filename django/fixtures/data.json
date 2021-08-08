@@ -1,0 +1,110 @@
+[
+  {
+    "model": "api.category",
+    "pk": 1,
+    "fields": {
+      "name": "Cars & Vehicles"
+    }
+  },
+  {
+    "model": "api.category",
+    "pk": 2,
+    "fields": {
+      "name": "Food"
+    }
+  },
+  {
+    "model": "api.category",
+    "pk": 3,
+    "fields": {
+      "name": "Properties"
+    }
+  },
+  {
+    "model": "api.category",
+    "pk": 4,
+    "fields": {
+      "name": "Electronics"
+    }
+  },
+  {
+    "model": "api.category",
+    "pk": 5,
+    "fields": {
+      "name": "Toys"
+    }
+  },
+  {
+    "model": "api.category",
+    "pk": 6,
+    "fields": {
+      "name": "Video Games"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 1,
+    "fields": {
+      "title": "Spider Man",
+      "description": "Very good game.",
+      "category": "6",
+      "price": "49.99",
+      "created_at": "2021-01-01"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 2,
+    "fields": {
+      "title": "God of War PS4",
+      "description": "Another very good game.",
+      "category": "6",
+      "price": "59.99",
+      "created_at": "2021-01-14"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 3,
+    "fields": {
+      "title": "Ford Focus ST",
+      "description": "Very good car.",
+      "category": "1",
+      "price": "1149.99",
+      "created_at": "2021-01-02"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 4,
+    "fields": {
+      "title": "Samsung S7 Edge",
+      "description": "Very good phone. Great camera.",
+      "category": "4",
+      "price": "149.99",
+      "created_at": "2021-01-11"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 5,
+    "fields": {
+      "title": "Potatoes 1kg",
+      "description": "Very good potatoes.",
+      "category": "2",
+      "price": "4.99",
+      "created_at": "2021-01-21"
+    }
+  },
+  {
+    "model": "api.offer",
+    "pk": 6,
+    "fields": {
+      "title": "Lego Star Wars",
+      "description": "Very good lego brick. Great quality.",
+      "category": "5",
+      "price": "249.99",
+      "created_at": "2021-01-11"
+    }
+  }
+]
