@@ -4,7 +4,7 @@ from rest_framework import routers
 from rest_framework.schemas import get_schema_view
 
 
-schema_view = get_schema_view(title='Advert API')
+schema_view = get_schema_view(title='Offerable API')
 
 router = routers.DefaultRouter()
 router.register(r'category', CategoryViewSet)
