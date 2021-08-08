@@ -6,19 +6,19 @@ CRUD application which consists of REST API based on DRF and SPA based on Angula
 If you want to run project locally do the following:
 
 ```sh
-$ git clone https://github.com/mateuszwwwrobel/Offerable.git
+git clone https://github.com/mateuszwwwrobel/Offerable.git
 ```
 ```sh
-$ cd Offerable
+cd Offerable
 ```
 
 Create a virtual environment and activate it:
 
 ```sh
-$ python3 -m venv <venv-name>
+python3 -m venv <venv-name>
 ```
 ```sh
-$ source <venv-name>/bin/activate
+source <venv-name>/bin/activate
 ```
 
 Then simply start a pre-prepared start.sh script which will do everything for you:
