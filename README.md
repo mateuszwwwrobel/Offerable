@@ -1,0 +1,45 @@
+# Offerable - advertisements portal
+CRUD application which consists of REST API based on DRF and SPA based on Angular.
+
+## Setup
+
+If you want to run project locally do the following:
+
+```sh
+$ git clone https://github.com/mateuszwwwrobel/Offerable.git
+$ cd Offerable
+```
+
+Create a virtual environment and activate it:
+
+```sh
+$ python3 -m venv <venv-name>
+$ source <venv-name>/bin/activate
+```
+
+Then simply start a pre-prepared start.sh script which will do everything for you:
+
+```sh
+(<venv-name>)$ bash start.sh
+```
+Note the `(venv-name)` in front of the prompt. This indicates that this terminal
+session operates in a virtual environment set up by `venv`.
+
+Navigate to `http://127.0.0.1:4200/`
+
+
+### Dependencies
+
+See requirements.txt file. 
+
+### Running tests
+
+In django directory run command:
+```sh
+(<venv-name>)$ python3 manage.py test
+```
+
+## Acknowledgments
+
+For help with every trouble:
+* [Stackoverflow](https://stackoverflow.com/)
