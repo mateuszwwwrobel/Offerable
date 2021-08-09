@@ -29,7 +29,9 @@ Then simply start a pre-prepared start.sh script which will do everything for yo
 Note the `(venv-name)` in front of the prompt. This indicates that this terminal
 session operates in a virtual environment set up by `venv`.
 
-Navigate to `http://127.0.0.1:4200/`
+Angular app will start automatically from script.
+
+Navigate to `http://127.0.0.1:8000/` if you want to have a look at browsable rest api. 
 
 
 ### Dependencies
