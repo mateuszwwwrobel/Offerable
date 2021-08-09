@@ -1,8 +1,10 @@
 from django.test import TestCase
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+
+from api.serializers import CategorySerializer, OfferGetSerializer, OfferPostSerializer
 from api.models import Category, Offer
-from django.urls import reverse
 
 
 # Models Tests
@@ -58,92 +60,121 @@ class OfferModelTestCase(TestCase):
         self.assertEqual(str(offer), expected_obj_name)
 
 
-# Endpoints Tests
-class CategoryViewsSet(APITestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.categories = []
-        category_names = ['Food', 'Cars', 'Properties']
-        for name in category_names:
-            instance = Category.objects.create(name=name)
-            cls.categories.append(instance)
-        cls.category = cls.categories[0]
+# Endpoints Tests - Category
+class CreateCategoryTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.data = {'name': 'Food'}
 
-    def test_can_browse_all_offers(self):
-        response = self.client.get(reverse("category-list"))
-
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-        self.assertEquals(len(self.categories), len(response.data))
-
-    def test_can_read_a_specific_offer(self):
-        response = self.client.get(
-            reverse("category-detail", args=[self.category.id])
-        )
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-        context = {'request': None}
+    def test_can_create_new_category(self):
+        response = self.client.post(reverse('category-list'), self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
-class OfferViewSet(APITestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.category = Category.objects.create(name="Electronics")
-        cls.offer_1 = Offer.objects.create(
+class ReadCategoryTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+
+    def test_can_read_category_list(self):
+        response = self.client.get(reverse('category-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_can_read_category_detail(self):
+        response = self.client.get(reverse('category-detail', args=[self.category.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class UpdateCategoryTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.context = {'request': None}
+        self.data = CategorySerializer(self.category, context=self.context).data
+        self.data.update({'name': 'Cars'})
+
+    def test_can_updated_category(self):
+        response = self.client.put(reverse('category-detail', args=[self.category.id]), self.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.category.refresh_from_db()
+        self.assertEqual(self.category.name, self.data['name'])
+
+
+class DeleteCategoryTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+
+    def test_can_delete_user(self):
+        response = self.client.delete(reverse('category-detail', args=[self.category.id]))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
+# Endpoints Tests - Offer
+class CreateOfferTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.offer = Offer.objects.create(
             title='GeForce 3080',
-            price='123.99',
-            description='Good graphic card.',
-            category=cls.category,
+            category=self.category,
+            price=123.50,
+            description="Great graphic card."
         )
-        offer_2 = Offer.objects.create(
-            title='GeForce 3070',
-            price='128.99',
-            description='Good graphic card.',
-            category=cls.category,
-        )
-        cls.offers = [cls.offer_1, offer_2]
+        self.data = {'title': 'GeForce 3070', 'category': self.category.id,
+                     'price': 333.99, 'description': 'Very good graphic card.'}
 
-    def test_can_browse_all_offers(self):
-        response = self.client.get(reverse("offer-list"))
+    def test_can_create_new_offer(self):
+        response = self.client.post(reverse('offer-list'), self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-        self.assertEquals(len(self.offers), len(response.data))
 
-    def test_can_read_a_specific_offer(self):
-        response = self.client.get(
-            reverse("offer-detail", args=[self.offer_1.id])
-        )
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-
-    def test_can_add_a_new_offer(self):
-        payload = {
-            "title": "GeForce 3070",
-            "description": "Good graphic card",
-            "price": 11.11,
-            "category": 1,
-        }
-        before_post = Offer.objects.all().count()
-        response = self.client.post(reverse("offer-list"), payload)
-        after_post = Offer.objects.all().count()
-
-        self.assertEquals(status.HTTP_201_CREATED, response.status_code)
-        self.assertEquals(before_post+1, after_post)
-
-    def test_can_edit_an_offer(self):
-        offer_data = {
-            "title": "GeForce 3070",
-            "description": "Good graphic card",
-            "price": 11.11,
-            "category": self.category,
-        }
-
-        offer = Offer.objects.create(**offer_data)
-        payload = {
-            "title": "Radeon 5700XT",
-        }
-
-        response = self.client.patch(
-            reverse("offer-detail", args=[offer.id]), payload
+class ReadOfferTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.offer = Offer.objects.create(
+            title='GeForce 3080',
+            category=self.category,
+            price=123.50,
+            description="Great graphic card."
         )
 
-        offer.refresh_from_db()
-        self.assertEquals(status.HTTP_200_OK, response.status_code)
-        self.assertEqual(offer.title, payload['title'])
+    def test_can_read_offer_list(self):
+        response = self.client.get(reverse('offer-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_can_read_offer_detail(self):
+        response = self.client.get(reverse('offer-detail', args=[self.category.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class UpdateOfferTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.offer = Offer.objects.create(
+            title='GeForce 3080',
+            category=self.category,
+            price=123.50,
+            description="Great graphic card."
+        )
+
+        self.context = {'request': None}
+        self.data = OfferPostSerializer(self.offer, context=self.context).data
+        self.data.update({'title': 'Radeon 6700'})
+
+    def test_can_updated_offer(self):
+        response = self.client.put(reverse('offer-detail', args=[self.offer.id]), self.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.offer.refresh_from_db()
+        self.assertEqual(self.offer.title, self.data['title'])
+
+
+class DeleteOfferTest(APITestCase):
+    def setUp(self):
+        self.category = Category.objects.create(name='Electronics')
+        self.offer = Offer.objects.create(
+            title='GeForce 3080',
+            category=self.category,
+            price=123.50,
+            description="Great graphic card."
+        )
+
+    def test_can_delete_user(self):
+        response = self.client.delete(reverse('offer-detail', args=[self.offer.id]))
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
